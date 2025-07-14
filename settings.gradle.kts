@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "LumiformApp"
 include(":app")
+include(":data")
