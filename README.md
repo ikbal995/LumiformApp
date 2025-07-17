@@ -38,20 +38,6 @@ An Android Jetpack Compose app built for a coding challenge to parse, persist, a
 
 ---
 
-## 📁 Folder Structure (Core)
-
-.
-├── data/
-│ ├── local/ # Room entities & DAO
-│ ├── remote/ # Retrofit API & DTOs
-│ └── ui/ # UI models (Page, Section, Question)
-│
-├── mainscreen/ # ViewModel, Repository & Composables
-├── di/ # Hilt modules
-└── MainActivity.kt # App entry point with NavHost
-
----
-
 ## 🚀 How to Run
 
 1. Clone the repo:
