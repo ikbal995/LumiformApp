@@ -4,6 +4,5 @@ import ikbal.mulalic.data.local.entity.BaseEntity
 import kotlinx.coroutines.flow.Flow
 
 interface MainRepository {
-    fun getItems(): Flow<List<BaseEntity>>
-    suspend fun fetchOrRefresh()
+    fun getData(): Flow<NetworkState<List<BaseEntity>>>
 }

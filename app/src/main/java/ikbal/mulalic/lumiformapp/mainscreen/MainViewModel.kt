@@ -17,40 +17,43 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
-    private val _items = MutableStateFlow<List<BaseUiModel>>(emptyList())
-    val items: StateFlow<List<BaseUiModel>> = _items.asStateFlow()
+    private val _uiState =
+        MutableStateFlow<NetworkState<List<BaseUiModel>>>(NetworkState.Success(emptyList()))
+    val uiState: StateFlow<NetworkState<List<BaseUiModel>>> = _uiState.asStateFlow()
 
-    fun fetchItemsFromDb() {
+    fun loadData() {
         viewModelScope.launch {
-            repository.getItems().collect { itemList ->
-                _items.value = itemList.map { item ->
-                    when (item.type) {
-                        LumiType.PAGE -> Page(
-                            type = item.type,
-                            title = item.title,
-                            items = item.items?.map { it.toUiModel() }.orEmpty()
-                        )
+            repository.getData().collect { networkState ->
+                when (networkState) {
+                    is NetworkState.Success -> {
+                        val items = networkState.data.map { item ->
+                            when (item.type) {
+                                LumiType.PAGE -> Page(
+                                    type = item.type,
+                                    title = item.title,
+                                    items = item.items?.map { it.toUiModel() }.orEmpty()
+                                )
 
-                        LumiType.SECTION -> Section(
-                            type = item.type,
-                            title = item.title,
-                            items = item.items?.map { it.toUiModel() }.orEmpty()
-                        )
+                                LumiType.SECTION -> Section(
+                                    type = item.type,
+                                    title = item.title,
+                                    items = item.items?.map { it.toUiModel() }.orEmpty()
+                                )
 
-                        LumiType.TEXT, LumiType.IMAGE -> Question(
-                            type = item.type,
-                            title = item.title,
-                            imageUrl = item.src
-                        )
+                                LumiType.TEXT, LumiType.IMAGE -> Question(
+                                    type = item.type,
+                                    title = item.title,
+                                    imageUrl = item.src
+                                )
+                            }
+                        }
+                        _uiState.value = NetworkState.Success(items)
                     }
+
+                    is NetworkState.Error -> _uiState.value =
+                        NetworkState.Error(networkState.throwable)
                 }
             }
-        }
-    }
-
-    fun fetchItemsFromApi() {
-        viewModelScope.launch {
-            repository.fetchOrRefresh()
         }
     }
 }

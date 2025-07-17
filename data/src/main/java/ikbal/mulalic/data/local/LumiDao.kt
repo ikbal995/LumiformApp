@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import ikbal.mulalic.data.local.entity.BaseEntity
-import ikbal.mulalic.data.local.entity.PageEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
