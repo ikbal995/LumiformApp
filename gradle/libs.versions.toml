@@ -19,6 +19,7 @@ ksp = "2.0.21-1.0.27"
 retrofit = "2.9.0"
 moshi = "1.15.0"
 moshiConverter = "2.9.0"
+glide = "1.0.0-alpha.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -52,6 +53,7 @@ moshi-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", v
 moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 moshi-converter = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "moshiConverter" }
 moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshi"}
+glide = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

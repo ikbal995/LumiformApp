@@ -1,11 +1,18 @@
 package ikbal.mulalic.data.local.entity
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import ikbal.mulalic.data.LumiType
+import ikbal.mulalic.data.ui.Question
+import java.util.UUID
 
 @Entity
 data class QuestionEntity(
-    override val title: String,
-    override val type: LumiType,
+    @PrimaryKey(autoGenerate = true) val id: Long? = 0,
+    val title: String,
+    val type: LumiType,
     val imageUrl: String?
-) : BaseEntity(type = type, title = title)
+)
+
+fun QuestionEntity.toUiModel() =
+    Question(type = this.type, title = this.title, imageUrl = this.imageUrl)
