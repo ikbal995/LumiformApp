@@ -1,5 +1,6 @@
 package ikbal.mulalic.data.remote.dto
 
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import ikbal.mulalic.data.LumiType
 import ikbal.mulalic.data.local.entity.QuestionEntity
@@ -8,6 +9,7 @@ import ikbal.mulalic.data.local.entity.QuestionEntity
 data class QuestionDto(
     override val type: LumiType,
     override val title: String,
+    @Json(name = "src")
     val imageUrl: String?
 ) : BaseDto(type = type, title = title)
 

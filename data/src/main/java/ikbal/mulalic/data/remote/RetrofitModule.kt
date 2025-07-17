@@ -24,10 +24,10 @@ object RetrofitModule {
     fun provideMoshi(): Moshi = Moshi.Builder()
         .add(
             PolymorphicJsonAdapterFactory.of(BaseDto::class.java, "type")
-                .withSubtype(PageDto::class.java, LumiType.PAGE.name)
-                .withSubtype(SectionDto::class.java, LumiType.SECTION.name)
-                .withSubtype(QuestionDto::class.java, LumiType.TEXT.name)
-                .withSubtype(QuestionDto::class.java, LumiType.IMAGE.name)
+                .withSubtype(PageDto::class.java, LumiType.PAGE.name.lowercase())
+                .withSubtype(SectionDto::class.java, LumiType.SECTION.name.lowercase())
+                .withSubtype(QuestionDto::class.java, LumiType.TEXT.name.lowercase())
+                .withSubtype(QuestionDto::class.java, LumiType.IMAGE.name.lowercase())
         )
         .add(KotlinJsonAdapterFactory())
         .build()
@@ -35,7 +35,7 @@ object RetrofitModule {
     @Provides
     @Singleton
     fun provideRetrofit(moshi: Moshi): Retrofit = Retrofit.Builder()
-        .baseUrl("https://your.api/")
+        .baseUrl("https://mocki.io/v1/")
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
 

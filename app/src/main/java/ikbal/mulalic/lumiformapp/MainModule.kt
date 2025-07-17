@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ikbal.mulalic.data.local.LumiDao
 import ikbal.mulalic.data.remote.ApiService
+import ikbal.mulalic.lumiformapp.mainscreen.MainRepository
+import ikbal.mulalic.lumiformapp.mainscreen.MainRepositoryImpl
 import javax.inject.Singleton
 
 @Module
