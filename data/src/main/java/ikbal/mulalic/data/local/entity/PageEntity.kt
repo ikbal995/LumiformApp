@@ -7,12 +7,11 @@ import ikbal.mulalic.data.ui.Page
 
 @Entity
 data class PageEntity(
-    @PrimaryKey(autoGenerate = true)
-    override val id: Long? = 0,
-    override val type: LumiType,
-    override val title: String,
+    @PrimaryKey(autoGenerate = true) val id: Long? = 0,
+    val type: LumiType,
+    val title: String,
     val items: List<BaseEntity>? = emptyList()
-) : BaseEntity(type = type, title = title, id = id)
+)
 
 fun PageEntity.toUiModel() =
     Page(type = this.type, title = this.title, items = this.items?.map { it.toUiModel() }.orEmpty())

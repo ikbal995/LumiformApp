@@ -2,15 +2,21 @@ package ikbal.mulalic.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.squareup.moshi.JsonClass
 import ikbal.mulalic.data.LumiType
 import ikbal.mulalic.data.ui.BaseUiModel
 
+@JsonClass(generateAdapter = true)
 @Entity
-open class BaseEntity(
-    @PrimaryKey(autoGenerate = true)
-    open val id: Long? = 0,
-    open val type: LumiType,
-    open val title: String,
+data class BaseEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long? = 0,
+    val type: LumiType,
+    val title: String,
+
+    val items: List<BaseEntity>? = emptyList(),
+
+    val src: String? = null
 )
 
-fun BaseEntity.toUiModel() = BaseUiModel(type = this.type, title = this.title)
+fun BaseEntity.toUiModel(): BaseUiModel =
+    BaseUiModel(type = this.type, title = this.title, items = items?.map { it.toUiModel() }.orEmpty())

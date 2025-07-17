@@ -4,16 +4,15 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ikbal.mulalic.data.LumiType
 import ikbal.mulalic.data.ui.Section
-import java.util.UUID
 
 @Entity
 data class SectionEntity(
     @PrimaryKey(autoGenerate = true)
-    override val id: Long? = 0,
-    override val type: LumiType,
-    override val title: String,
+    val id: Long? = 0,
+    val type: LumiType,
+    val title: String,
     val items: List<BaseEntity>? = emptyList()
-) : BaseEntity(type = type, title = title, id = id)
+)
 
 fun SectionEntity.toUiModel() =
     Section(

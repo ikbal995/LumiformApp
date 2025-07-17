@@ -22,13 +22,6 @@ object RetrofitModule {
     @Provides
     @Singleton
     fun provideMoshi(): Moshi = Moshi.Builder()
-        .add(
-            PolymorphicJsonAdapterFactory.of(BaseDto::class.java, "type")
-                .withSubtype(PageDto::class.java, LumiType.PAGE.name.lowercase())
-                .withSubtype(SectionDto::class.java, LumiType.SECTION.name.lowercase())
-                .withSubtype(QuestionDto::class.java, LumiType.TEXT.name.lowercase())
-                .withSubtype(QuestionDto::class.java, LumiType.IMAGE.name.lowercase())
-        )
         .add(KotlinJsonAdapterFactory())
         .build()
 

@@ -8,12 +8,11 @@ import java.util.UUID
 
 @Entity
 data class QuestionEntity(
-    @PrimaryKey(autoGenerate = true)
-    override val id: Long? = 0,
-    override val title: String,
-    override val type: LumiType,
+    @PrimaryKey(autoGenerate = true) val id: Long? = 0,
+    val title: String,
+    val type: LumiType,
     val imageUrl: String?
-) : BaseEntity(type = type, title = title, id = id)
+)
 
 fun QuestionEntity.toUiModel() =
     Question(type = this.type, title = this.title, imageUrl = this.imageUrl)

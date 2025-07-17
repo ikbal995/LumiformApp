@@ -18,11 +18,11 @@ class Converters {
 
     private val moshi = Moshi.Builder()
         .add(
-            PolymorphicJsonAdapterFactory.of(BaseDto::class.java, "type")
+            PolymorphicJsonAdapterFactory.of(BaseDto::class.java, "type")/*
                 .withSubtype(PageDto::class.java, LumiType.PAGE.name)
                 .withSubtype(SectionDto::class.java, LumiType.SECTION.name)
                 .withSubtype(QuestionDto::class.java, LumiType.TEXT.name)
-                .withSubtype(QuestionDto::class.java, LumiType.IMAGE.name)
+                .withSubtype(QuestionDto::class.java, LumiType.IMAGE.name)*/
         )
         .add(KotlinJsonAdapterFactory())
         .build()
