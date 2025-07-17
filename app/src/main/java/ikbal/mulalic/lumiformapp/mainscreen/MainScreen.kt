@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -14,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -26,11 +29,44 @@ import ikbal.mulalic.lumiformapp.Screen
 @Composable
 fun MainScreen(navController: NavController) {
     val viewModel: MainViewModel = hiltViewModel()
-    val items = viewModel.items.collectAsState().value
+    val uiState = viewModel.uiState.collectAsState().value
     LaunchedEffect(Unit) {
-        viewModel.fetchItemsFromApi()
-        viewModel.fetchItemsFromDb()
+        viewModel.loadData()
     }
+    when (uiState) {
+        is NetworkState.Error -> ShowError(uiState.throwable)
+        is NetworkState.Success -> ShowData(navController, uiState.data)
+        is NetworkState.Loading -> ShowLoading()
+    }
+
+}
+
+@Composable
+fun ShowLoading() {
+    Text(
+        text = "Loading...",
+        modifier = Modifier
+            .wrapContentWidth()
+            .wrapContentHeight(),
+        textAlign = TextAlign.Center
+    )
+}
+
+@Composable
+fun ShowError(throwable: Throwable) {
+    Text(
+        text = throwable.message.orEmpty(),
+        modifier = Modifier
+            .wrapContentWidth()
+            .wrapContentHeight()
+            .padding(8.dp),
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.labelLarge
+    )
+}
+
+@Composable
+fun ShowData(navController: NavController, items: List<BaseUiModel>) {
     val flattenedItems = recursiveList(items)
     LazyColumn(
         modifier = Modifier

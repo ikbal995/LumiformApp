@@ -4,9 +4,6 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import ikbal.mulalic.data.local.entity.BaseEntity
-import ikbal.mulalic.data.local.entity.PageEntity
-import ikbal.mulalic.data.local.entity.QuestionEntity
-import ikbal.mulalic.data.local.entity.SectionEntity
 
 @Database(
     entities = [BaseEntity::class],
