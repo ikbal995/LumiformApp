@@ -9,9 +9,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import ikbal.mulalic.data.LumiType
 import ikbal.mulalic.data.local.entity.BaseEntity
 import ikbal.mulalic.data.remote.dto.BaseDto
-import ikbal.mulalic.data.remote.dto.PageDto
-import ikbal.mulalic.data.remote.dto.QuestionDto
-import ikbal.mulalic.data.remote.dto.SectionDto
 
 
 class Converters {
