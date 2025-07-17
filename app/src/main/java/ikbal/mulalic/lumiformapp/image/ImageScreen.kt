@@ -16,14 +16,15 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 
 @Composable
-fun ImageScreen(navController: NavController, imageUrl: String) {
+fun ImageScreen(navController: NavController) {
+    val imageUrl = navController.previousBackStackEntry?.savedStateHandle?.get<String?>("imageUrl")
     Box(modifier = Modifier.fillMaxSize()) {
-        LumiImage(imageUrl)
+        LumiImage(imageUrl.orEmpty())
         IconButton(
             onClick = { navController.popBackStack() },
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .padding(16.dp)
+                .padding(horizontal = 16.dp, vertical = 32.dp)
         ) {
             Icon(imageVector = Icons.Default.Close, contentDescription = "Close")
         }

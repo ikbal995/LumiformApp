@@ -8,9 +8,7 @@ import ikbal.mulalic.data.local.entity.BaseEntity
 data class BaseDto(
     val title: String,
     val type: LumiType,
-
     val items: List<BaseDto>? = emptyList(),
-
     val src: String? = null
 )
 

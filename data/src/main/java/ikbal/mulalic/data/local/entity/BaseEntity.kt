@@ -12,11 +12,14 @@ data class BaseEntity(
     @PrimaryKey(autoGenerate = true) val id: Long? = 0,
     val type: LumiType,
     val title: String,
-
     val items: List<BaseEntity>? = emptyList(),
-
     val src: String? = null
 )
 
 fun BaseEntity.toUiModel(): BaseUiModel =
-    BaseUiModel(type = this.type, title = this.title, items = items?.map { it.toUiModel() }.orEmpty())
+    BaseUiModel(
+        type = this.type,
+        title = this.title,
+        items = items?.map { it.toUiModel() }.orEmpty(),
+        imageUrl = src
+    )

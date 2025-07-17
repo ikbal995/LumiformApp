@@ -47,7 +47,7 @@ fun ApplicationNavigation() {
             MainScreen(navController)
         }
         composable(Screen.Image.route) {
-            ImageScreen(navController, "")
+            ImageScreen(navController)
         }
     }
 }
