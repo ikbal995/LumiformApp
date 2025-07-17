@@ -14,6 +14,7 @@ class MainRepositoryImpl @Inject constructor(
     private val dao: LumiDao
 ) : MainRepository {
     override fun getData(): Flow<NetworkState<List<BaseEntity>>> = flow {
+        emit(NetworkState.Loading)
         runCatching { api.getPages() }
             .onSuccess {
                 dao.insertItems(it.toEntity())

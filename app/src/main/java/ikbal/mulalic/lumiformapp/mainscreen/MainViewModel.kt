@@ -9,6 +9,7 @@ import ikbal.mulalic.data.ui.BaseUiModel
 import ikbal.mulalic.data.ui.Page
 import ikbal.mulalic.data.ui.Question
 import ikbal.mulalic.data.ui.Section
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,11 +19,12 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
     private val _uiState =
-        MutableStateFlow<NetworkState<List<BaseUiModel>>>(NetworkState.Success(emptyList()))
+        MutableStateFlow<NetworkState<List<BaseUiModel>>>(NetworkState.Loading)
     val uiState: StateFlow<NetworkState<List<BaseUiModel>>> = _uiState.asStateFlow()
 
     fun loadData() {
         viewModelScope.launch {
+            delay(3000L) //simulating api call as step 2. is mentioning from Android task
             repository.getData().collect { networkState ->
                 when (networkState) {
                     is NetworkState.Success -> {
@@ -52,6 +54,8 @@ class MainViewModel @Inject constructor(private val repository: MainRepository) 
 
                     is NetworkState.Error -> _uiState.value =
                         NetworkState.Error(networkState.throwable)
+
+                    is NetworkState.Loading -> _uiState.value = NetworkState.Loading
                 }
             }
         }

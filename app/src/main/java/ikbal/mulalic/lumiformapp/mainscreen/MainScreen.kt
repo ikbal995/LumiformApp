@@ -1,6 +1,5 @@
 package ikbal.mulalic.lumiformapp.mainscreen
 
-import android.R
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,6 +36,7 @@ fun MainScreen(navController: NavController) {
     when (uiState) {
         is NetworkState.Error -> ShowError(uiState.throwable)
         is NetworkState.Success -> ShowData(navController, uiState.data)
+        is NetworkState.Loading -> ShowLoading()
     }
 
 }
@@ -47,8 +47,7 @@ fun ShowLoading() {
         text = "Loading...",
         modifier = Modifier
             .wrapContentWidth()
-            .wrapContentHeight()
-        ,
+            .wrapContentHeight(),
         textAlign = TextAlign.Center
     )
 }
@@ -60,8 +59,7 @@ fun ShowError(throwable: Throwable) {
         modifier = Modifier
             .wrapContentWidth()
             .wrapContentHeight()
-            .padding(8.dp)
-        ,
+            .padding(8.dp),
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.labelLarge
     )
